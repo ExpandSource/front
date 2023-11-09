@@ -1,12 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
-import Home from './components/Home';
+import ApiTest from './components/ApiTest';
+import TodoApp from './components/todo/TodoApp';
 
 function App() {
   return (
     <div className='App'>
-      <Home />
+      {/* <ApiTest /> */}
+      <TodoApp />
     </div>
   );
 }
