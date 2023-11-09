@@ -1,12 +1,27 @@
 import React from 'react';
 import './TodoApp.css';
 import { useState } from 'react';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 
 function TodoApp() {
   return (
     <div className='TodoApp'>
-      TodoApp
-      <LoginComponent />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<LoginComponent />} />
+          <Route path='/login' element={<LoginComponent />} />
+          <Route path='/welcome/:username' element={<WelcomeComponent />} />
+          <Route path='/todos' element={<ListTodosComponent />} />
+          <Route path='/*' element={<ErrorComponent />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
@@ -18,6 +33,8 @@ function LoginComponent() {
   const [password, setPassword] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -33,6 +50,7 @@ function LoginComponent() {
       console.log('success');
       setShowSuccessMessage(true);
       setShowErrorMessage(false);
+      navigate(`/welcome/${username}`);
     } else {
       console.log('failed');
       setShowSuccessMessage(false);
@@ -59,6 +77,7 @@ function LoginComponent() {
   }
   return (
     <div className='Login'>
+      <h1>Time to Login</h1>
       {showSuccessMessage && (
         <div className='successMessage'>Authenticated Successful</div>
       )}
@@ -96,5 +115,64 @@ function LoginComponent() {
 }
 
 function WelcomeComponent() {
-  return <div className='Welcome'>Welcome</div>;
+  const { username } = useParams();
+
+  return (
+    <div className='Welcome'>
+      <h1>Welcome! {username}</h1>
+      <div>
+        Manage your todos - <Link to='/todos'>Go here</Link>
+      </div>
+    </div>
+  );
+}
+
+function ErrorComponent() {
+  return (
+    <div className='ErrorComponent'>
+      <h1>404</h1>
+      <div>404 not found.</div>
+    </div>
+  );
+}
+
+function ListTodosComponent() {
+  const today = new Date();
+  const targetDate = new Date(
+    today.getFullYear() + 12,
+    today.getMonth(),
+    today.getDate()
+  );
+  const todos = [
+    { id: 1, description: 'learn AWS', done: false, targetDate: targetDate },
+    { id: 2, description: 'learn Java', done: false, targetDate: targetDate },
+    { id: 3, description: 'learn Spring', done: false, targetDate: targetDate },
+  ];
+  return (
+    <div className='ListTodosComponent'>
+      <h1>What To Do?</h1>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <td>id</td>
+              <td>description</td>
+              <td>Done</td>
+              <td>targetDate</td>
+            </tr>
+          </thead>
+          <tbody>
+            {todos.map((todo) => (
+              <tr key={todo.id}>
+                <td>{todo.id}</td>
+                <td>{todo.description}</td>
+                <td>{todo.done.toString()}</td>
+                <td>{todo.targetDate.toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }
