@@ -6,19 +6,10 @@ function App() {
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
-    fetch('/hello')
-      .then((res) => res.text())
-      .then((message) => setMsg(message));
+    fetch('/hello').then((res) => res.text().then((msg) => setMsg(msg)));
   }, []);
 
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>{msg}</p>
-      </header>
-    </div>
-  );
+  return <div className='App'></div>;
 }
 
 export default App;
