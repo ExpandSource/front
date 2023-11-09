@@ -1,15 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import Home from './components/Home';
 
 function App() {
-  const [msg, setMsg] = useState('');
-
-  useEffect(() => {
-    fetch('/hello').then((res) => res.text().then((msg) => setMsg(msg)));
-  }, []);
-
-  return <div className='App'></div>;
+  return (
+    <div className='App'>
+      <Home />
+    </div>
+  );
 }
 
 export default App;
