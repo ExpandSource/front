@@ -10,7 +10,7 @@ export default function LoginComponent() {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const authContext = useContext(AuthContext);
-  const { setIsAuthenticated } = authContext;
+  const { login } = authContext;
   const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
@@ -23,16 +23,12 @@ export default function LoginComponent() {
 
   const handleSubmit = () => {
     // hardcording
-    if (username === 'testuser' && password === '1234') {
-      setIsAuthenticated(true);
-      console.log(authContext.isAuthenticated);
-      setShowSuccessMessage(true);
-      setShowErrorMessage(false);
+    if (login(username, password)) {
+      //      setShowSuccessMessage(true);
+      //      setShowErrorMessage(false);
       navigate(`/welcome/${username}`);
     } else {
-      setIsAuthenticated(false);
-      console.log(authContext.isAuthenticated);
-      setShowSuccessMessage(false);
+      //setShowSuccessMessage(false);
       setShowErrorMessage(true);
     }
   };

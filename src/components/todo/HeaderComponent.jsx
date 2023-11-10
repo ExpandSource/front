@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext, useAuth } from './security/AuthContext';
 
 function HeaderComponent() {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   return (
     <div>
@@ -44,13 +44,7 @@ function HeaderComponent() {
                 )}
                 {isAuthenticated && (
                   <li className='nav-item fs-5'>
-                    <Link
-                      className='nav-link'
-                      to='/logout'
-                      onClick={() => {
-                        setIsAuthenticated(false);
-                      }}
-                    >
+                    <Link className='nav-link' to='/logout' onClick={logout}>
                       Logout
                     </Link>
                   </li>
