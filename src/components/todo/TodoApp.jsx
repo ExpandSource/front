@@ -1,36 +1,36 @@
-import React, { useContext } from 'react';
-import './TodoApp.css';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import LoginComponent from './LoginComponent';
-import WelcomeComponent from './WelcomeComponent';
-import ErrorComponent from './ErrorComponent';
-import ListTodosComponent from './ListTodosComponent';
-import HeaderComponent from './HeaderComponent';
-import FooterComponent from './FooterComponent';
-import LogoutComponent from './LogoutComponent';
-import AuthProvider, { AuthContext } from './security/AuthContext';
-import TodoComponent from './TodoComponent';
+import React, { useContext } from "react";
+import "./TodoApp.css";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import LoginComponent from "./LoginComponent";
+import WelcomeComponent from "./WelcomeComponent";
+import ErrorComponent from "./ErrorComponent";
+import ListTodosComponent from "./ListTodosComponent";
+import HeaderComponent from "./HeaderComponent";
+import FooterComponent from "./FooterComponent";
+import LogoutComponent from "./LogoutComponent";
+import AuthProvider, { AuthContext } from "./security/AuthContext";
+import TodoComponent from "./TodoComponent";
 
 function AuthenticateRoute({ children }) {
   const authContext = useContext(AuthContext);
   if (authContext.isAuthenticated) {
     return children;
   }
-  return <Navigate to='/' />;
+  return <Navigate to="/" />;
 }
 
 function TodoApp() {
   return (
-    <div className='TodoApp'>
+    <div className="TodoApp">
       <AuthProvider>
         <BrowserRouter>
           <HeaderComponent />
           <Routes>
-            <Route path='/' element={<LoginComponent />} />
-            <Route path='/login' element={<LoginComponent />} />
+            <Route path="/" element={<LoginComponent />} />
+            <Route path="/login" element={<LoginComponent />} />
 
             <Route
-              path='/welcome/:username'
+              path="/welcome/:username"
               element={
                 <AuthenticateRoute>
                   <WelcomeComponent />
@@ -38,7 +38,7 @@ function TodoApp() {
               }
             />
             <Route
-              path='/todos'
+              path="/todos"
               element={
                 <AuthenticateRoute>
                   <ListTodosComponent />
@@ -46,7 +46,7 @@ function TodoApp() {
               }
             />
             <Route
-              path='/todos/:id'
+              path="/todo/:id"
               element={
                 <AuthenticateRoute>
                   <TodoComponent />
@@ -54,7 +54,7 @@ function TodoApp() {
               }
             />
             <Route
-              path='/logout'
+              path="/logout"
               element={
                 <AuthenticateRoute>
                   <LogoutComponent />
@@ -62,7 +62,7 @@ function TodoApp() {
               }
             />
 
-            <Route path='/*' element={<ErrorComponent />} />
+            <Route path="/*" element={<ErrorComponent />} />
           </Routes>
           <FooterComponent />
         </BrowserRouter>
