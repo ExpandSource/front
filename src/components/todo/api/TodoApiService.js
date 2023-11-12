@@ -2,7 +2,11 @@ import axios from 'axios';
 import { apiClient } from './ApiClient';
 
 export const retrieveAllTodosForUsernameApi = (username) =>
-  apiClient.get(`/users/${username}/todos`);
+  apiClient.get(`/users/${username}/todos`,
+    {
+      headers:
+        { Authorization: 'Basic dGVzdHVzZXI6MTIzNA==' }
+    });
 
 export const deleteTodoApi = (username, id) =>
   apiClient.delete(`/users/${username}/todos/${id}`);

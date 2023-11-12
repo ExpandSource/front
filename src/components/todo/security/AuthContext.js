@@ -9,6 +9,7 @@ export default function AuthProvider({ children }) {
 
   const [username, setUsername] = useState(null);
 
+
   function login(username, password) {
     if (username === 'testuser' && password === '1234') {
       setIsAuthenticated(true);
@@ -19,6 +20,17 @@ export default function AuthProvider({ children }) {
       return false;
     }
   }
+
+  // function login(username, password) {
+  //   if (username === 'testuser' && password === '1234') {
+  //     setIsAuthenticated(true);
+  //     setUsername(username);
+  //     return true;
+  //   } else {
+  //     setIsAuthenticated(false);
+  //     return false;
+  //   }
+  // }
 
   function logout() {
     setIsAuthenticated(false);
