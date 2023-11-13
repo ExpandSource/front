@@ -21,9 +21,9 @@ export default function LoginComponent() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // hardcording
-    if (login(username, password)) {
+    if (await login(username, password)) {
       //      setShowSuccessMessage(true);
       //      setShowErrorMessage(false);
       navigate(`/welcome/${username}`);

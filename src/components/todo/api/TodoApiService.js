@@ -1,12 +1,7 @@
-import axios from 'axios';
 import { apiClient } from './ApiClient';
 
 export const retrieveAllTodosForUsernameApi = (username) =>
-  apiClient.get(`/users/${username}/todos`,
-    {
-      headers:
-        { Authorization: 'Basic dGVzdHVzZXI6MTIzNA==' }
-    });
+  apiClient.get(`/users/${username}/todos`);
 
 export const deleteTodoApi = (username, id) =>
   apiClient.delete(`/users/${username}/todos/${id}`);
@@ -19,3 +14,7 @@ export const updateTodoApi = (username, id, todo) =>
 
 export const createTodoApi = (username, todo) =>
   apiClient.post(`/users/${username}/todos`, todo);
+
+//
+export const executeBasicAutheticationService = (token) =>
+  apiClient.get(`/basicauth`, { headers: { Authorization: token } });
