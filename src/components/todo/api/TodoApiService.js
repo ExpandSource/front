@@ -14,7 +14,3 @@ export const updateTodoApi = (username, id, todo) =>
 
 export const createTodoApi = (username, todo) =>
   apiClient.post(`/users/${username}/todos`, todo);
-
-//
-export const executeBasicAutheticationService = (token) =>
-  apiClient.get(`/basicauth`, { headers: { Authorization: token } });
