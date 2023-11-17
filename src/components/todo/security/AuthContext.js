@@ -1,10 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
 import { apiClient } from '../api/ApiClient';
-import {
-  executeBasicAutheticationService,
-  executeJwtAutheticationService,
-} from '../api/AuthenticationApiService';
+import { autheticationService } from '../api/AuthenticationService';
 
 export const AuthContext = createContext();
 
@@ -20,7 +17,8 @@ export default function AuthProvider({ children }) {
   // 인터셉터
   async function login(username, password) {
     try {
-      const response = await executeJwtAutheticationService(username, password);
+      const response = await autheticationService(username, password);
+      // 정상응답이면 JWT 토큰 등록
       if (response.status === 200) {
         const jwtToken = 'Bearer ' + response.data.token;
 
